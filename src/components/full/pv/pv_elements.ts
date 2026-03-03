@@ -40,7 +40,8 @@ export const renderSolarElements = (
 			x="3%"
 			y="2.5%"
 		>
-			${renderPV('pvtotal', '177', '230', data, config)}
+			${renderPV('pvtotal-wide', '177', '230', data, config)}
+			${renderPV('pvtotal-small', '51', '162', data, config)}
 			${renderPV('pv1', '000', '040', data, config)}
 			${renderPV('pv2', '101', '040', data, config)}
 			${renderPV('pv3', '000', '085', data, config)}
@@ -133,7 +134,7 @@ export const renderSolarElements = (
 				'pv5_name',
 				0,
 				168.5,
-				[1, 2, 3].includes(mppts),
+				[1, 2, 3, 4].includes(mppts) || !config.wide,
 				'st3 st8 left-align',
 				solarColour,
 				config.solar.pv5_name || localize('common.pv5_name'),
@@ -143,7 +144,9 @@ export const renderSolarElements = (
 				'pv5_efficiency',
 				72,
 				168.5,
-				[1, 2, 3].includes(mppts) || [0, 1].includes(efficiency),
+				[1, 2, 3, 4].includes(mppts) ||
+					[0, 1].includes(efficiency) ||
+					!config.wide,
 				[2, 3].includes(efficiency) ? 'st3 st8 right-align' : 'st12',
 				solarColour,
 				`${data.PV5Efficiency}%`,
@@ -153,7 +156,7 @@ export const renderSolarElements = (
 				'pv6_name',
 				99,
 				168.5,
-				[1, 2, 3].includes(mppts),
+				[1, 2, 3, 4, 5].includes(mppts) || !config.wide,
 				'st3 st8 left-align',
 				solarColour,
 				config.solar.pv6_name || localize('common.pv6_name'),
@@ -163,7 +166,9 @@ export const renderSolarElements = (
 				'pv6_efficiency',
 				171,
 				168.5,
-				[1, 2, 3].includes(mppts) || [0, 1].includes(efficiency),
+				[1, 2, 3, 4, 5].includes(mppts) ||
+					[0, 1].includes(efficiency) ||
+					!config.wide,
 				[2, 3].includes(efficiency) ? 'st3 st8 right-align' : 'st12',
 				solarColour,
 				`${data.PV6Efficiency}%`,
@@ -173,7 +178,7 @@ export const renderSolarElements = (
 				'pv7_name',
 				0,
 				213.5,
-				[1, 2, 3, 4].includes(mppts),
+				[1, 2, 3, 4, 5, 6].includes(mppts) || !config.wide,
 				'st3 st8 left-align',
 				solarColour,
 				config.solar.pv7_name || localize('common.pv7_name'),
@@ -183,7 +188,9 @@ export const renderSolarElements = (
 				'pv7_efficiency',
 				72,
 				213.5,
-				[1, 2, 3, 4].includes(mppts) || [0, 1].includes(efficiency),
+				[1, 2, 3, 4, 5, 6].includes(mppts) ||
+					[0, 1].includes(efficiency) ||
+					!config.wide,
 				[2, 3].includes(efficiency) ? 'st3 st8 right-align' : 'st12',
 				solarColour,
 				`${data.PV7Efficiency}%`,
@@ -193,7 +200,7 @@ export const renderSolarElements = (
 				'pv8_name',
 				99,
 				213.5,
-				[1, 2, 3, 4].includes(mppts),
+				[1, 2, 3, 4, 5, 6, 7].includes(mppts) || !config.wide,
 				'st3 st8 left-align',
 				solarColour,
 				config.solar.pv8_name || localize('common.pv8_name'),
@@ -203,7 +210,9 @@ export const renderSolarElements = (
 				'pv8_efficiency',
 				171,
 				213.5,
-				[1, 2, 3, 4].includes(mppts) || [0, 1].includes(efficiency),
+				[1, 2, 3, 4, 5, 6, 7].includes(mppts) ||
+					[0, 1].includes(efficiency) ||
+					!config.wide,
 				[2, 3].includes(efficiency) ? 'st3 st8 right-align' : 'st12',
 				solarColour,
 				`${data.PV8Efficiency}%`,
@@ -211,8 +220,8 @@ export const renderSolarElements = (
 			)}
 			${renderText(
 				'total_pv_efficiency',
-				247,
-				268.5,
+				config.wide ? 247 : 121,
+				config.wide ? 268.5 : 202,
 				[0, 1].includes(efficiency) || mppts === 1,
 				[2, 3].includes(efficiency) ? 'st3 st8 right-align' : 'st12',
 				solarColour,
@@ -253,9 +262,11 @@ export const renderSolarElements = (
 				'pv1',
 				mppts === 1
 					? config.wide
-						? 'M 86 175 M 278 250 L 96 250 Q 86 250 86 240 L 86 56 H 70'
-						: 'M 86 175 M 155 250 L 96 250 Q 86 250 86 240 L 86 56 H 70'
-					: 'M 86 212 L 86 56 Q 86 56 86 56 L 70 56',
+						? 'M 278 250 L 96 250 Q 86 250 86 240 L 86 66 Q 86 56 76 56 H 70'
+						: 'M 155 250 L 96 250 Q 86 250 86 240 L 86 66 Q 86 56 76 56 H 70'
+					: config.wide
+						? 'M 86 212 L 86 56 H 70'
+						: 'M 86 162 L 86 56 H 70',
 				solarColour,
 				data.pv1LineWidth,
 				data.pv1PowerWatts,
@@ -267,7 +278,9 @@ export const renderSolarElements = (
 			)}
 			${renderPVFlow(
 				'pv2',
-				'M 86 212 L 86 56 Q 86 56 86 56 L 101 56',
+				config.wide
+					? 'M 86 212 L 86 56 Q 86 56 86 56 L 101 56'
+					: 'M 86 162 L 86 56 Q 86 56 86 56 L 101 56',
 				solarColour,
 				data.pv2LineWidth,
 				data.pv2PowerWatts,
@@ -279,7 +292,9 @@ export const renderSolarElements = (
 			)}
 			${renderPVFlow(
 				'pv3',
-				'M 86 212 L 86 101 Q 86 101 86 101 L 70 101',
+				config.wide
+					? 'M 86 212 L 86 101 Q 86 101 86 101 L 70 101'
+					: 'M 86 162 L 86 101 Q 86 101 86 101 L 70 101',
 				solarColour,
 				data.pv3LineWidth,
 				data.pv3PowerWatts,
@@ -291,7 +306,9 @@ export const renderSolarElements = (
 			)}
 			${renderPVFlow(
 				'pv4',
-				'M 86 212 L 86 101 Q 86 101 86 101 L 101 101',
+				config.wide
+					? 'M 86 212 L 86 101 Q 86 101 86 101 L 101 101'
+					: 'M 86 162 L 86 101 Q 86 101 86 101 L 101 101',
 				solarColour,
 				data.pv4LineWidth,
 				data.pv4PowerWatts,
@@ -310,7 +327,7 @@ export const renderSolarElements = (
 				durationCur['pv5'],
 				invert_flow,
 				minLineWidth,
-				[1, 2, 3].includes(mppts) ? 'st12' : '',
+				[1, 2, 3, 4].includes(mppts) || !config.wide ? 'st12' : '',
 				'1;0',
 			)}
 			${renderPVFlow(
@@ -322,7 +339,7 @@ export const renderSolarElements = (
 				durationCur['pv6'],
 				invert_flow,
 				minLineWidth,
-				[1, 2, 3].includes(mppts) ? 'st12' : '',
+				[1, 2, 3, 4, 5].includes(mppts) || !config.wide ? 'st12' : '',
 				'1;0',
 			)}
 			${renderPVFlow(
@@ -334,7 +351,7 @@ export const renderSolarElements = (
 				durationCur['pv7'],
 				invert_flow,
 				minLineWidth,
-				[1, 2, 3].includes(mppts) ? 'st12' : '',
+				[1, 2, 3, 4, 5, 6].includes(mppts) || !config.wide ? 'st12' : '',
 				'1;0',
 			)}
 			${renderPVFlow(
@@ -346,14 +363,14 @@ export const renderSolarElements = (
 				durationCur['pv8'],
 				invert_flow,
 				minLineWidth,
-				[1, 2, 3].includes(mppts) ? 'st12' : '',
+				[1, 2, 3, 4, 5, 6, 7].includes(mppts) || !config.wide ? 'st12' : '',
 				'1;0',
 			)}
 			${renderPVFlow(
 				'solar1',
 				config.wide
 					? 'M 178 245 L 96 245 Q 86 245 86 240 L 86 212'
-					: 'M 155 250 L 96 250 Q 86 250 86 240 L 86 212',
+					: 'M 155 250 L 96 250 Q 86 250 86 240 L 86 192',
 				solarColour,
 				data.solarLineWidth,
 				totalPV,
@@ -365,16 +382,14 @@ export const renderSolarElements = (
 			)}
 			${renderPVFlow(
 				'solar2',
-				config.wide
-					? 'M 278 245 L 248 245'
-					: 'M 155 250 L 96 250 Q 86 250 86 240 L 86 212',
+				'M 278 245 L 248 245',
 				solarColour,
 				data.solarLineWidth,
 				totalPV,
 				durationCur['solar' + 0.5],
 				invert_flow,
 				minLineWidth,
-				mppts === 1 ? 'st12' : '',
+				mppts === 1 || !config.wide ? 'st12' : '',
 				'1;0',
 			)}
 			${config.solar?.navigate
@@ -473,8 +488,8 @@ export const renderSolarElements = (
 				? svg`
                     ${createTextWithPopup(
 											'pvtotal_power',
-											213,
-											246.5,
+											config.wide ? 213 : 87,
+											config.wide ? 246.5 : 178,
 											mppts === 1 || !data.statePVTotal.isValid(),
 											`${largeFont !== true ? 'st14' : 'st4'} st8`,
 											solarColour,
@@ -489,8 +504,8 @@ export const renderSolarElements = (
 				: svg`
                     ${renderText(
 											'pvtotal_power',
-											223,
-											256.5,
+											config.wide ? 223 : 87,
+											config.wide ? 256.5 : 178,
 											mppts === 1 || !data.statePVTotal.isValid(),
 											`${largeFont !== true ? 'st14' : 'st4'} st8`,
 											solarColour,
@@ -557,7 +572,9 @@ export const renderSolarElements = (
 				'pv5_power',
 				36.5,
 				146.5,
-				[1, 2, 3].includes(mppts) || !data.statePV5Power.isValid(),
+				[1, 2, 3, 4].includes(mppts) ||
+					!data.statePV5Power.isValid() ||
+					!config.wide,
 				`${largeFont !== true ? 'st14' : 'st4'} st8`,
 				solarColour,
 				auto_scale
@@ -570,7 +587,9 @@ export const renderSolarElements = (
 				'pv6_power',
 				137,
 				146.5,
-				[1, 2, 3].includes(mppts) || !data.statePV6Power.isValid(),
+				[1, 2, 3, 4, 5].includes(mppts) ||
+					!data.statePV6Power.isValid() ||
+					!config.wide,
 				`${largeFont !== true ? 'st14' : 'st4'} st8`,
 				solarColour,
 				auto_scale
@@ -583,7 +602,9 @@ export const renderSolarElements = (
 				'pv7_power',
 				36.5,
 				191.5,
-				[1, 2, 3].includes(mppts) || !data.statePV7Power.isValid(),
+				[1, 2, 3, 4, 5, 6].includes(mppts) ||
+					!data.statePV7Power.isValid() ||
+					!config.wide,
 				`${largeFont !== true ? 'st14' : 'st4'} st8`,
 				solarColour,
 				auto_scale
@@ -596,7 +617,9 @@ export const renderSolarElements = (
 				'pv8_power',
 				137,
 				191.5,
-				[1, 2, 3].includes(mppts) || !data.statePV8Power.isValid(),
+				[1, 2, 3, 4, 5, 6, 7].includes(mppts) ||
+					!data.statePV8Power.isValid() ||
+					!config.wide,
 				`${largeFont !== true ? 'st14' : 'st4'} st8`,
 				solarColour,
 				auto_scale
@@ -745,8 +768,9 @@ export const renderSolarElements = (
 				139,
 				!config.entities.pv5_voltage ||
 					config.entities.pv5_voltage === 'none' ||
-					[1, 2, 3].includes(mppts) ||
-					!data.statePV5Voltage.isValid(),
+					[1, 2, 3, 4].includes(mppts) ||
+					!data.statePV5Voltage.isValid() ||
+					!config.wide,
 				'st3 left-align',
 				solarColour,
 				`${Utils.formatNumberLocale(
@@ -762,8 +786,9 @@ export const renderSolarElements = (
 				150,
 				!config.entities.pv5_current ||
 					config.entities.pv5_current === 'none' ||
-					[1, 2, 3].includes(mppts) ||
-					!data.statePV5Current.isValid(),
+					[1, 2, 3, 4].includes(mppts) ||
+					!data.statePV5Current.isValid() ||
+					!config.wide,
 				'st3 left-align',
 				solarColour,
 				`${Utils.formatNumberLocale(
@@ -779,8 +804,9 @@ export const renderSolarElements = (
 				139,
 				!config.entities.pv6_voltage ||
 					config.entities.pv6_voltage === 'none' ||
-					[1, 2, 3].includes(mppts) ||
-					!data.statePV6Voltage.isValid(),
+					[1, 2, 3, 4, 5].includes(mppts) ||
+					!data.statePV6Voltage.isValid() ||
+					!config.wide,
 				'st3 left-align',
 				solarColour,
 				`${Utils.formatNumberLocale(
@@ -796,8 +822,9 @@ export const renderSolarElements = (
 				150,
 				!config.entities.pv6_current ||
 					config.entities.pv6_current === 'none' ||
-					[1, 2, 3].includes(mppts) ||
-					!data.statePV6Current.isValid(),
+					[1, 2, 3, 4, 5].includes(mppts) ||
+					!data.statePV6Current.isValid() ||
+					!config.wide,
 				'st3 left-align',
 				solarColour,
 				`${Utils.formatNumberLocale(
@@ -813,8 +840,9 @@ export const renderSolarElements = (
 				139,
 				!config.entities.pv7_voltage ||
 					config.entities.pv7_voltage === 'none' ||
-					[1, 2, 3].includes(mppts) ||
-					!data.statePV7Voltage.isValid(),
+					[1, 2, 3, 4, 5, 6].includes(mppts) ||
+					!data.statePV7Voltage.isValid() ||
+					!config.wide,
 				'st3 left-align',
 				solarColour,
 				`${Utils.formatNumberLocale(
@@ -825,13 +853,14 @@ export const renderSolarElements = (
 				true,
 			)}
 			${createTextWithPopup(
-				'pv6_current',
+				'pv7_current',
 				142,
 				150,
 				!config.entities.pv7_current ||
 					config.entities.pv7_current === 'none' ||
-					[1, 2, 3].includes(mppts) ||
-					!data.statePV7Current.isValid(),
+					[1, 2, 3, 4, 5, 6].includes(mppts) ||
+					!data.statePV7Current.isValid() ||
+					!config.wide,
 				'st3 left-align',
 				solarColour,
 				`${Utils.formatNumberLocale(
@@ -847,8 +876,9 @@ export const renderSolarElements = (
 				139,
 				!config.entities.pv8_voltage ||
 					config.entities.pv8_voltage === 'none' ||
-					[1, 2, 3].includes(mppts) ||
-					!data.statePV8Voltage.isValid(),
+					[1, 2, 3, 4, 5, 6, 7].includes(mppts) ||
+					!data.statePV8Voltage.isValid() ||
+					!config.wide,
 				'st3 left-align',
 				solarColour,
 				`${Utils.formatNumberLocale(
@@ -864,8 +894,9 @@ export const renderSolarElements = (
 				150,
 				!config.entities.pv8_current ||
 					config.entities.pv8_current === 'none' ||
-					[1, 2, 3].includes(mppts) ||
-					!data.statePV8Current.isValid(),
+					[1, 2, 3, 4, 5, 6, 7].includes(mppts) ||
+					!data.statePV8Current.isValid() ||
+					!config.wide,
 				'st3 left-align',
 				solarColour,
 				`${Utils.formatNumberLocale(

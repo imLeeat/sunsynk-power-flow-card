@@ -58,13 +58,35 @@ export function renderPV(
 		className = 'st12';
 	} else if (id === 'pv4' && [1, 2, 3].includes(config.solar.mppts)) {
 		className = 'st12';
-	} else if (id === 'pv5' && [1, 2, 3, 4].includes(config.solar.mppts)) {
+	} else if (
+		id === 'pv5' &&
+		([1, 2, 3, 4].includes(config.solar.mppts) || !config.wide)
+	) {
 		className = 'st12';
-	} else if (id === 'pv6' && [1, 2, 3, 4, 5].includes(config.solar.mppts)) {
+	} else if (
+		id === 'pv6' &&
+		([1, 2, 3, 4, 5].includes(config.solar.mppts) || !config.wide)
+	) {
 		className = 'st12';
-	} else if (id === 'pv7' && [1, 2, 3, 4, 5].includes(config.solar.mppts)) {
+	} else if (
+		id === 'pv7' &&
+		([1, 2, 3, 4, 5, 6].includes(config.solar.mppts) || !config.wide)
+	) {
 		className = 'st12';
-	} else if (id === 'pv8' && [1, 2, 3, 4, 5].includes(config.solar.mppts)) {
+	} else if (
+		id === 'pv8' &&
+		([1, 2, 3, 4, 5, 6, 7].includes(config.solar.mppts) || !config.wide)
+	) {
+		className = 'st12';
+	} else if (
+		id === 'pvtotal-wide' &&
+		(!config.wide || config.solar.mppts === 1)
+	) {
+		className = 'st12';
+	} else if (
+		id === 'pvtotal-small' &&
+		(config.wide || config.solar.mppts === 1)
+	) {
 		className = 'st12';
 	}
 

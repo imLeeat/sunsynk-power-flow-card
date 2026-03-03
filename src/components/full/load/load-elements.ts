@@ -402,7 +402,7 @@ export const renderLoadElements = (
 			<svg id="load-flow">
 				${renderPath(
 					'es-line2',
-					'M 306 118 L 371 118',
+					'M 306 118 L 395 118',
 					true,
 					dynamic_colour ? flowColour : loadColour,
 					data.loadLineWidth,

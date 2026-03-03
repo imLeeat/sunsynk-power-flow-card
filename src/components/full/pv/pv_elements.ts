@@ -45,6 +45,8 @@ export const renderSolarElements = (
 			${renderPV('pv2', '101', '40', data, config)}
 			${renderPV('pv3', '0', '100', data, config)}
 			${renderPV('pv4', '101', '100', data, config)}
+			${renderPV('pv5', '0', '120', data, config)}
+			${renderPV('pv6', '101', '120', data, config)}
 			${renderText(
 				'pv1_name',
 				0,
@@ -125,6 +127,46 @@ export const renderSolarElements = (
 				`${data.PV4Efficiency}%`,
 				true,
 			)}
+			${renderText(
+				'pv5_name',
+				99,
+				139,
+				[1, 2, 3].includes(mppts),
+				'st3 st8 left-align',
+				solarColour,
+				config.solar.pv5_name || localize('common.pv5_name'),
+				true,
+			)}
+			${renderText(
+				'pv5_efficiency',
+				99,
+				150,
+				[1, 2, 3].includes(mppts) || [0, 1].includes(efficiency),
+				[2, 3].includes(efficiency) ? 'st3 st8 left-align' : 'st12',
+				solarColour,
+				`${data.PV5Efficiency}%`,
+				true,
+			)}
+			${renderText(
+				'pv6_name',
+				99,
+				139,
+				[1, 2, 3].includes(mppts),
+				'st3 st8 left-align',
+				solarColour,
+				config.solar.pv6_name || localize('common.pv6_name'),
+				true,
+			)}
+			${renderText(
+				'pv6_efficiency',
+				99,
+				150,
+				[1, 2, 3].includes(mppts) || [0, 1].includes(efficiency),
+				[2, 3].includes(efficiency) ? 'st3 st8 left-align' : 'st12',
+				solarColour,
+				`${data.PV6Efficiency}%`,
+				true,
+			)}			
 			${renderText(
 				'total_pv_efficiency',
 				51,
@@ -217,6 +259,30 @@ export const renderSolarElements = (
 				[1, 2, 3].includes(mppts) ? 'st12' : '',
 				'1;0',
 			)}
+			${renderPVFlow(
+				'pv5',
+				'M 86 162 L 86 115 Q 86 115 86 115 L 101 115',
+				solarColour,
+				data.pv5LineWidth,
+				data.pv5PowerWatts,
+				durationCur['pv5'],
+				invert_flow,
+				minLineWidth,
+				[1, 2, 3].includes(mppts) ? 'st12' : '',
+				'1;0',
+			)}
+			${renderPVFlow(
+				'pv6',
+				'M 86 162 L 86 115 Q 86 115 86 115 L 101 115',
+				solarColour,
+				data.pv6LineWidth,
+				data.pv6PowerWatts,
+				durationCur['pv6'],
+				invert_flow,
+				minLineWidth,
+				[1, 2, 3].includes(mppts) ? 'st12' : '',
+				'1;0',
+			)}			
 			${renderPVFlow(
 				'solar',
 				config.wide
@@ -398,7 +464,7 @@ export const renderSolarElements = (
 				'pv4_power_189',
 				137,
 				117,
-				[1, 2, 3].includes(mppts) || !data.statePV3Power.isValid(),
+				[1, 2, 3].includes(mppts) || !data.statePV4Power.isValid(),
 				`${largeFont !== true ? 'st14' : 'st4'} st8`,
 				solarColour,
 				auto_scale
@@ -407,6 +473,32 @@ export const renderSolarElements = (
 				(e) => Utils.handlePopup(e, config.entities.pv4_power_189),
 				true,
 			)}
+			${createTextWithPopup(
+				'pv5_power',
+				137,
+				117,
+				[1, 2, 3].includes(mppts) || !data.statePV5Power.isValid(),
+				`${largeFont !== true ? 'st14' : 'st4'} st8`,
+				solarColour,
+				auto_scale
+					? `${Utils.convertValue(data.pv5PowerWatts, decimalPlaces) || 0}`
+					: `${Utils.toNum(data.pv5PowerWatts || 0, 0)} ${UnitOfPower.WATT}`,
+				(e) => Utils.handlePopup(e, config.entities.pv5_power),
+				true,
+			)}
+			${createTextWithPopup(
+				'pv6_power',
+				137,
+				117,
+				[1, 2, 3].includes(mppts) || !data.statePV6Power.isValid(),
+				`${largeFont !== true ? 'st14' : 'st4'} st8`,
+				solarColour,
+				auto_scale
+					? `${Utils.convertValue(data.pv6PowerWatts, decimalPlaces) || 0}`
+					: `${Utils.toNum(data.pv6PowerWatts || 0, 0)} ${UnitOfPower.WATT}`,
+				(e) => Utils.handlePopup(e, config.entities.pv6_power),
+				true,
+			)}			
 			${createTextWithPopup(
 				'pv1_voltage',
 				41,
@@ -541,6 +633,74 @@ export const renderSolarElements = (
 				(e) => Utils.handlePopup(e, config.entities.pv4_current_116),
 				true,
 			)}
+			${createTextWithPopup(
+				'pv4_voltage',
+				142,
+				139,
+				!config.entities.pv5_voltage ||
+					config.entities.pv5_voltage === 'none' ||
+					[1, 2, 3].includes(mppts) ||
+					!data.statePV5Voltage.isValid(),
+				'st3 left-align',
+				solarColour,
+				`${Utils.formatNumberLocale(
+					data.statePV5Voltage.toNum(1),
+					1,
+				)} ${UnitOfElectricPotential.VOLT}`,
+				(e) => Utils.handlePopup(e, config.entities.pv5_voltage),
+				true,
+			)}
+			${createTextWithPopup(
+				'pv4_current',
+				142,
+				150,
+				!config.entities.pv5_current ||
+					config.entities.pv5_current === 'none' ||
+					[1, 2, 3].includes(mppts) ||
+					!data.statePV5Current.isValid(),
+				'st3 left-align',
+				solarColour,
+				`${Utils.formatNumberLocale(
+					data.statePV5Current.toNum(1),
+					1,
+				)} ${UnitOfElectricalCurrent.AMPERE}`,
+				(e) => Utils.handlePopup(e, config.entities.pv5_current),
+				true,
+			)}
+			${createTextWithPopup(
+				'pv6_voltage',
+				142,
+				139,
+				!config.entities.pv6_voltage ||
+					config.entities.pv6_voltage === 'none' ||
+					[1, 2, 3].includes(mppts) ||
+					!data.statePV6Voltage.isValid(),
+				'st3 left-align',
+				solarColour,
+				`${Utils.formatNumberLocale(
+					data.statePV6Voltage.toNum(1),
+					1,
+				)} ${UnitOfElectricPotential.VOLT}`,
+				(e) => Utils.handlePopup(e, config.entities.pv6_voltage),
+				true,
+			)}
+			${createTextWithPopup(
+				'pv6_current',
+				142,
+				150,
+				!config.entities.pv6_current ||
+					config.entities.pv6_current === 'none' ||
+					[1, 2, 3].includes(mppts) ||
+					!data.statePV6Current.isValid(),
+				'st3 left-align',
+				solarColour,
+				`${Utils.formatNumberLocale(
+					data.statePV6Current.toNum(1),
+					1,
+				)} ${UnitOfElectricalCurrent.AMPERE}`,
+				(e) => Utils.handlePopup(e, config.entities.pv6_current),
+				true,
+			)}			
 			${createTextWithPopup(
 				'environ_temp',
 				1,

@@ -1,9 +1,11 @@
-modification:
+Modification:
 Added PV5-PV8 to Full layout, wide mode.
 
 <img width="1347" height="748" alt="grafik" src="https://github.com/user-attachments/assets/a64f1d85-026c-43b9-b4a5-fa865a38e9f4" />
 
-add resource: https://github.com/imLeeat/sunsynk-power-flow-card/tree/main/dist/sunsynk-power-flow-card.js
+### Manual Installation
+1. Copy the `sunsynk-power-flow-card.js` from https://github.com/imLeeat/sunsynk-power-flow-card/tree/main/dist into www directory.
+2. Add resource: /local/sunsynk-power-flow-card.js
 
 # Sunsynk Power Flow Card
 

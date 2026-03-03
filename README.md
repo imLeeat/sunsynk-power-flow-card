@@ -1,3 +1,10 @@
+modification:
+Added PV5-PV8 to Full layout, wide mode.
+
+<img width="1347" height="748" alt="grafik" src="https://github.com/user-attachments/assets/a64f1d85-026c-43b9-b4a5-fa865a38e9f4" />
+
+
+
 # Sunsynk Power Flow Card
 
 An animated Home Assistant card to emulate the power flow that's shown on the Sunsynk Inverter screen. You can use this to display data from many inverters e.g. Sunsynk, Deye, Solis, Lux, FoxESS, Goodwe, Huawei etc as long as you have the required sensor data. See the [wiki](https://github.com/slipx06/sunsynk-power-flow-card/wiki) for integration methods and examples.

@@ -20,6 +20,8 @@ export function renderPV(
 		pv4: 'PV4Efficiency',
 		pv5: 'PV5Efficiency',
 		pv6: 'PV6Efficiency',
+		pv7: 'PV7Efficiency',
+		pv8: 'PV8Efficiency',
 	};
 	const efficiencyPropertyName = efficiencyMap[id] || 'totalPVEfficiency';
 	// Coerce efficiency to a number and clamp to [0, 100] to ensure valid gradient offsets
@@ -30,7 +32,9 @@ export function renderPV(
 		| 'PV3Efficiency'
 		| 'PV4Efficiency'
 		| 'PV5Efficiency'
-		| 'PV6Efficiency';
+		| 'PV6Efficiency'
+		| 'PV7Efficiency'
+		| 'PV8Efficiency';
 	const effKey = efficiencyPropertyName as EfficiencyKey as keyof DataDto;
 	const efficiencyRaw = data[effKey] as unknown;
 	const parsed =
@@ -57,6 +61,10 @@ export function renderPV(
 	} else if (id === 'pv5' && [1, 2, 3, 4].includes(config.solar.mppts)) {
 		className = 'st12';
 	} else if (id === 'pv6' && [1, 2, 3, 4, 5].includes(config.solar.mppts)) {
+		className = 'st12';
+	} else if (id === 'pv7' && [1, 2, 3, 4, 5].includes(config.solar.mppts)) {
+		className = 'st12';
+	} else if (id === 'pv8' && [1, 2, 3, 4, 5].includes(config.solar.mppts)) {
 		className = 'st12';
 	}
 

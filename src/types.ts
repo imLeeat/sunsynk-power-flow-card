@@ -149,6 +149,10 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
 		pv5_max_power: number;
 		pv6_name: string;
 		pv6_max_power: number;
+		pv7_name: string;
+		pv7_max_power: number;
+		pv8_name: string;
+		pv8_max_power: number;
 		auto_scale: boolean;
 		display_mode: number;
 		dynamic_colour: boolean;
@@ -304,6 +308,12 @@ export interface CardConfigEntities {
 	pv6_voltage: string;
 	pv6_current: string;
 	pv6_power: string;
+	pv7_voltage: string;
+	pv7_current: string;
+	pv7_power: string;
+	pv8_voltage: string;
+	pv8_current: string;
+	pv8_power: string;
 	remaining_solar: string;
 	battery_temp_182: string;
 	battery2_temp_182: string;
@@ -473,6 +483,8 @@ export interface DataDto {
 	pv4LineWidth;
 	pv5LineWidth;
 	pv6LineWidth;
+	pv7LineWidth;
+	pv8LineWidth;
 	gridLineWidth;
 	pv1PowerWatts;
 	pv2PowerWatts;
@@ -480,6 +492,8 @@ export interface DataDto {
 	pv4PowerWatts;
 	pv5PowerWatts;
 	pv6PowerWatts;
+	pv7PowerWatts;
+	pv8PowerWatts;
 	batteryStateColour;
 	battery2StateColour;
 	inverterStateColour;
@@ -563,6 +577,8 @@ export interface DataDto {
 	statePV3Current: CustomEntity;
 	statePV5Current: CustomEntity;
 	statePV6Current: CustomEntity;
+	statePV7Current: CustomEntity;
+	statePV8Current: CustomEntity;
 	stateRadiatorTemp: CustomEntity;
 	stateBatteryCurrent: CustomEntity;
 	stateBattery2Current: CustomEntity;
@@ -573,6 +589,8 @@ export interface DataDto {
 	statePV4Voltage: CustomEntity;
 	statePV5Voltage: CustomEntity;
 	statePV6Voltage: CustomEntity;
+	statePV7Voltage: CustomEntity;
+	statePV8Voltage: CustomEntity;
 	stateBatteryTemp: CustomEntity;
 	stateBattery2Temp: CustomEntity;
 	statePrepaidUnits: CustomEntity;
@@ -583,6 +601,8 @@ export interface DataDto {
 	statePV4Power: CustomEntity;
 	statePV5Power: CustomEntity;
 	statePV6Power: CustomEntity;
+	statePV7Power: CustomEntity;
+	statePV8Power: CustomEntity;
 	statePVTotal: CustomEntity;
 	statePV1Power: CustomEntity;
 	stateAuxLoad1Extra: CustomEntity;
@@ -600,6 +620,8 @@ export interface DataDto {
 	PV4Efficiency;
 	PV5Efficiency;
 	PV6Efficiency;
+	PV7Efficiency;
+	PV8Efficiency;
 	gridPercentage;
 	flowColour;
 	flowBatColour;

@@ -651,7 +651,7 @@ export class SunSynkCardEditor
 											schema: [
 												{
 													name: 'mppts',
-													selector: { number: { min: 1, max: 6 } },
+													selector: { number: { min: 1, max: 8 } },
 												},
 												{ name: 'show_daily', selector: { boolean: {} } },
 												{ name: 'pv1_name', selector: { text: {} } },
@@ -660,6 +660,8 @@ export class SunSynkCardEditor
 												{ name: 'pv4_name', selector: { text: {} } },
 												{ name: 'pv5_name', selector: { text: {} } },
 												{ name: 'pv6_name', selector: { text: {} } },
+												{ name: 'pv7_name', selector: { text: {} } },
+												{ name: 'pv8_name', selector: { text: {} } },
 												{ name: 'auto_scale', selector: { boolean: {} } },
 												{
 													name: 'display_mode',
@@ -675,6 +677,8 @@ export class SunSynkCardEditor
 												{ name: 'pv4_max_power', selector: { number: {} } },
 												{ name: 'pv5_max_power', selector: { number: {} } },
 												{ name: 'pv6_max_power', selector: { number: {} } },
+												{ name: 'pv7_max_power', selector: { number: {} } },
+												{ name: 'pv8_max_power', selector: { number: {} } },
 												{
 													name: 'efficiency',
 													selector: { number: { mode: 'box', min: 0, max: 3 } },
@@ -700,6 +704,8 @@ export class SunSynkCardEditor
 														{ name: 'pv4_max_power', selector: { entity: {} } },
 														{ name: 'pv5_max_power', selector: { entity: {} } },
 														{ name: 'pv6_max_power', selector: { entity: {} } },
+														{ name: 'pv7_max_power', selector: { entity: {} } },
+														{ name: 'pv8_max_power', selector: { entity: {} } },
 													],
 												},
 											],
@@ -1299,6 +1305,18 @@ export class SunSynkCardEditor
 												},
 											},
 											{
+												name: 'pv7_power',
+												selector: {
+													entity: { device_class: SensorDeviceClass.POWER },
+												},
+											},
+											{
+												name: 'pv8_power',
+												selector: {
+													entity: { device_class: SensorDeviceClass.POWER },
+												},
+											},
+											{
 												name: 'pv1_voltage_109',
 												selector: {
 													entity: { device_class: SensorDeviceClass.VOLTAGE },
@@ -1366,6 +1384,30 @@ export class SunSynkCardEditor
 											},
 											{
 												name: 'pv6_current',
+												selector: {
+													entity: { device_class: SensorDeviceClass.CURRENT },
+												},
+											},
+											{
+												name: 'pv7_voltage',
+												selector: {
+													entity: { device_class: SensorDeviceClass.VOLTAGE },
+												},
+											},
+											{
+												name: 'pv7_current',
+												selector: {
+													entity: { device_class: SensorDeviceClass.CURRENT },
+												},
+											},
+											{
+												name: 'pv8_voltage',
+												selector: {
+													entity: { device_class: SensorDeviceClass.VOLTAGE },
+												},
+											},
+											{
+												name: 'pv8_current',
 												selector: {
 													entity: { device_class: SensorDeviceClass.CURRENT },
 												},
@@ -1960,7 +2002,7 @@ export class SunSynkCardEditor
 			case 'three_phase': {
 				const on = Boolean(
 					cfg?.inverter &&
-						(cfg.inverter as Record<string, unknown>).three_phase,
+					(cfg.inverter as Record<string, unknown>).three_phase,
 				);
 				const v = on ? '3P' : '1P';
 				return `${base} (${v})`;

@@ -80,6 +80,8 @@ export default {
 		pv4_name: '',
 		pv5_name: '',
 		pv6_name: '',
+		pv7_name: '',
+		pv8_name: '',
 		auto_scale: true,
 		display_mode: 1,
 		dynamic_colour: true,
